@@ -14,19 +14,25 @@ HTTP/1.1 支持：GET/HEAD/POST、Keep-Alive、静态文件服务
 请求超时控制：利用 io_uring linked timeout 实现请求级超时
 
 ## Envoirment  
-* OS: Ubuntu 14.04
-* Complier: g++ 4.8
-* CMake 3.16+
-* GCC 10+ 
+| 项目要求            | 当前环境        | 
+| ------------------ | ----------------- |
+| Linux Kernel ≥ 5.1 | 6.8.0-124-generic | 
+| io_uring 支持       | 内核 6.8         | 
+| liburing-dev       | 已安装             | 
+| g++ 支持 C++20      | g++ 11.4.0       | 
+| C++20 协程          | g++ 11.4.0      | 
+| CMake              | 3.22.1            | 
+
 
 ## Build
 
-	git clone https://github.com/yourname/cws.git
-	cd cws
-	mkdir build && cd build
-	cmake ..
-	make
+	./build.sh
+
+## Usage
+
+	启动服务器：./build/WebServer/coroutine/CoroutineWebServer -p 8080 -t 4 -l /tmp/coroutine-webserver.log -d /path/to/WebServer
+	验证：curl http://127.0.0.1:8080/hello
+	压力测试：./webbench -t 60 -c 1000 -2 --get http://127.0.0.1:8080/hello
 
 
-
-
+压力测试结果请看：压力测试结果.png
